@@ -91,15 +91,81 @@ function sameFrequency(number1, number2) {
   Restrictions:
 
   Time - O(n)
-
   Space - O(n)
 
+  #Todo
   Bonus:
 
   Time - O(n log n)
-
   Space - O(1)
 */
-function areThereDuplicates() {
-  // good luck. (supply any arguments you deem necessary.)
+function areThereDuplicates(...args) {
+  const map = {};
+
+  for (const element of args) {
+    if (map[element]) map[element] += 1;
+    else map[element] = 1;
+  }
+  for (const key in map) {
+    if (map[key] > 1) return true;
+  }
+  return false;
+}
+
+/**
+  Frequency Counter - constructNote
+  Write a function called constructNote, which accepts two strings, a message and some letters. The function should return true if the message can be built with the letters that you are given, or it should return false.
+
+  Assume that there are only lowercase letters and no space or special characters in both the message and the letters.
+
+  Bonus Constraints:
+
+  If M is the length of message and N is the length of letters:
+
+  Time Complexity: O(M+N)
+
+  Space Complexity: O(N)
+
+  Examples:
+
+  constructNote('aa', 'abc') // false
+  constructNote('abc', 'dcba') // true
+  constructNote('aabbcc', 'bcabcaddff') // true
+*/
+function constructNote(str1, str2) {
+  const map = {};
+ 
+  for (const element of str2.split('')) {
+    if (map[element]) map[element] += 1;
+    else map[element] = 1;
+  }
+
+  for (const element of str1.split('')) {
+    if (map[element]) map[element] -= 1;
+    else return false;
+  }
+
+  return true;
+}
+
+/**
+  Frequency Counter - findAllDuplicates
+  Given an array of positive integers, some elements appear twice and others appear once. Find all the elements that appear twice in this array. Note that you can return the elements in any order.
+
+  findAllDuplicates([4,3,2,7,8,2,3,1]) // array with 2 and 3
+  findAllDuplicates([4, 3, 2, 1, 0]) // []
+  findAllDuplicates([4, 3, 2, 1, 0, 1, 2, 3]) // array with 3, 2, and 1
+  Time Complexity - O(n)
+*/
+function findAllDuplicates(arr) {
+  const map = {};
+  const duplicates = [];
+
+  for (const element of arr) {
+    if (map[element]) {
+      duplicates.push(element);
+    } else map[element] = 1;
+  }
+
+  return duplicates;
 }
