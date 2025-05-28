@@ -100,16 +100,7 @@ function sameFrequency(number1, number2) {
   Space - O(1)
 */
 function areThereDuplicates(...args) {
-  const map = {};
-
-  for (const element of args) {
-    if (map[element]) map[element] += 1;
-    else map[element] = 1;
-  }
-  for (const key in map) {
-    if (map[key] > 1) return true;
-  }
-  return false;
+  return new Set(args).size !== args.length;
 }
 
 /**
