@@ -1,3 +1,5 @@
+const helper = require('../helper');
+
 /**
   Multiple Pointers - countUniqueValues
   Implement a function called countUniqueValues, which accepts a sorted array, and counts the unique values in the array. There can be negative numbers in the array, but it will always be sorted.
@@ -25,4 +27,45 @@ function countUniqueValues(arr) {
     }
   }
   return count;
+}
+
+/**
+  Multiple Pointers - averagePair
+  Write a function called averagePair. Given a sorted array of integers and a target average, determine if there is a pair of values in the array where the average of the pair equals the target average. There may be more than one pair that matches the average target.
+
+  #Todo
+  Bonus Constraints:
+
+  Time: O(N)
+
+  Space: O(1)
+
+  Sample Input:
+
+  averagePair([1,2,3],2.5) // true
+  averagePair([1,3,3,5,6,7,10,12,19],8) // true
+  averagePair([-1,0,3,4,5,6], 4.1) // false
+  averagePair([],4) // false
+*/
+function averagePair(arr, target) {
+  if (arr.length == 0) return false;
+
+  const combinations = helper.getTheAverageRevers(target, 2);
+
+  if (combinations.length < 2 || combinations[0].length < 2) return false;
+  
+  const max = combinations[0][1];
+  const subArray = [];
+
+  for (const element of arr) {
+    if (element > max) break;
+    subArray.push(element)
+  }
+
+  for (const combination of combinations) {
+    const pair = subArray.filter(x => x == combination[0] || x == combination[1]);
+    if (pair.length == 2) return true;
+  }
+
+  return false;
 }
