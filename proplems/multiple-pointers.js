@@ -33,7 +33,6 @@ function countUniqueValues(arr) {
   Multiple Pointers - averagePair
   Write a function called averagePair. Given a sorted array of integers and a target average, determine if there is a pair of values in the array where the average of the pair equals the target average. There may be more than one pair that matches the average target.
 
-  #Todo
   Bonus Constraints:
 
   Time: O(N)
@@ -49,22 +48,16 @@ function countUniqueValues(arr) {
 */
 function averagePair(arr, target) {
   if (arr.length == 0) return false;
-
-  const combinations = helper.getTheAverageRevers(target, 2);
-
-  if (combinations.length < 2 || combinations[0].length < 2) return false;
   
-  const max = combinations[0][1];
-  const subArray = [];
-
-  for (const element of arr) {
-    if (element > max) break;
-    subArray.push(element)
-  }
-
-  for (const combination of combinations) {
-    const pair = subArray.filter(x => x == combination[0] || x == combination[1]);
-    if (pair.length == 2) return true;
+  const sum = target * 2;
+  let startPointer = 0;
+  let endPointer = arr.length - 1;
+  
+  while (true){
+    if (startPointer > endPointer) break;
+    if (arr[startPointer] + arr[endPointer] > sum) endPointer--;
+    if (arr[startPointer] + arr[endPointer] < sum) startPointer++;
+    if (arr[startPointer] + arr[endPointer] == sum) return true;
   }
 
   return false;
